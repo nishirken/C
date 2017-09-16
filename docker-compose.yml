@@ -1,0 +1,10 @@
+version: '3'
+services:
+  c_lessons:
+    container_name: c_lessons
+    image: gcc:7.2.0
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./src:/src
+      - ./build:/build
