@@ -28,6 +28,19 @@ void countWords() {
     printf("Word count: %d\n", wordCount);
 }
 
+void newLineWords() {
+    int c = 0;
+
+    while (!endOfFile(c = getchar()) && c != NEW_LINE) {
+        if (c == SPACE || c == TAB) {
+            putchar('\n');
+        }
+        putchar(c);
+    }
+    putchar('\n');
+}
+
 void main() {
-    countWords();
+    /*countWords();*/
+    newLineWords();
 }
