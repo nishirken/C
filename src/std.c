@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int boolean(int value) {
+int endOfFile(int value) {
     return value != EOF;
 }
 
@@ -16,7 +16,7 @@ void symbolCount() {
     long tabCount = 0;
     long spaceCount = 0;
 
-    while (boolean(c = getchar())) {
+    while (endOfFile(c = getchar())) {
         if (c == NEW_LINE) {
             ++newLineCount;
             printf("New line count: %ld\n", newLineCount);
@@ -34,7 +34,7 @@ void replaceSpaces() {
     int c = 0;
     int space = 0;
 
-    while (boolean(c = getchar()) && c != NEW_LINE) {
+    while (endOfFile(c = getchar()) && c != NEW_LINE) {
         space = (c == SPACE) ? space + 1 : 0;
         if (space <= 1) {
             putchar(c);
@@ -45,7 +45,7 @@ void replaceSpaces() {
 void showSymbols() {
     int c = 0;
 
-    while (boolean(c = getchar()) && c != NEW_LINE) {
+    while (endOfFile(c = getchar()) && c != NEW_LINE) {
         if (c == TAB) {
             printf("%s","\\t");
         }
