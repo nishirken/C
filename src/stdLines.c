@@ -1,7 +1,11 @@
 #include <stdio.h>
 
 #define NEW_LINE 10
+#define TAB 9
+#define SPACE 32
 #define ESC 27
+#define TRUE 1
+#define FALSE 0
 
 void resetLine(char line[]) {
     int i = 0;
@@ -38,6 +42,27 @@ void printOnlyShortStrings() {
     }
 }
 
+void removeExtraSpaces() {
+    int c;
+    int prevSpace = FALSE;
+
+    for (int i = 0; (c = getchar()) != EOF && c != ESC; ++i) {
+        if (c == TAB) {
+            c = SPACE;
+        }
+        if (c == SPACE) {
+            if (!prevSpace) {
+                printf("%c", c);
+            }
+            prevSpace = TRUE;
+        } else {
+            printf("%c", c);
+            prevSpace = FALSE;
+        }
+    }
+}
+
 void main() {
-    printOnlyShortStrings();
+    /*printOnlyShortStrings();*/
+    removeExtraSpaces();
 }
