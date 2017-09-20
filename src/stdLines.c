@@ -46,23 +46,47 @@ void removeExtraSpaces() {
     int c;
     int prevSpace = FALSE;
 
-    for (int i = 0; (c = getchar()) != EOF && c != ESC; ++i) {
-        if (c == TAB) {
-            c = SPACE;
+}
+
+int getLine() {
+    int c = 0;
+    int maxLineLength = 1000;
+    int lineLength = 0;
+    char line[maxLineLength];
+
+    for (int i = 0; (c = getchar()) != ESC; ++i) {
+        ++lineLength;
+        line[i] = c;
+    }
+
+    int prevSpace = FALSE;
+    int prevNewLine = FALSE;
+    int currentSymbol = 0;
+
+    for (int j = 0; j < lineLength; ++j) {
+        currentSymbol = line[j];
+        if (currentSymbol == TAB) {
+            currentSymbol = SPACE;
         }
-        if (c == SPACE) {
+        if (currentSymbol == SPACE) {
             if (!prevSpace) {
-                printf("%c", c);
+                printf("%c", currentSymbol);
             }
             prevSpace = TRUE;
-        } else {
-            printf("%c", c);
+        } else if (currentSymbol == NEW_LINE) {
+            prevNewLine = TRUE;
             prevSpace = FALSE;
+        } else {
+            printf("%c", currentSymbol);
+            prevSpace = FALSE;
+            prevNewLine = FALSE;
         }
     }
+    putchar(NEW_LINE);
 }
 
 void main() {
     /*printOnlyShortStrings();*/
-    removeExtraSpaces();
+    /*removeExtraSpaces();*/
+    getLine();
 }
