@@ -1,64 +1,75 @@
 #include <stdio.h>
+#include <string.h>
+#include "utils.h"
+#include "chars.h"
+#include "../boolean.h"
 
-#define NEW_LINE 10
-#define TAB 9
-#define SPACE 32
-#define ESC 27
-#define TRUE 1
-#define FALSE 0
 #define MAX_LINE_LENGTH 1000
 
-void printLine(const char line[]) {
-    printf("%s\n", line);
-}
-
-void writeLine(char line[]) {
+void removeExtraSpaces(char line[], const int lineLength) {
+    int i = 0;
+    int j = 0;
     int prevSpace = FALSE;
-    int i = 0;
-    char c = 0;
-
-    while ((c = getchar()) != ESC) {
-        line[i] = c;
-        ++i;
-    }
-}
-
-void removeExtraSpaces(const char from[], char to[]) {
-    int i = 0;
+    char temp[lineLength + 1];
     char currentSymbol = 0;
-    int prevSpace = FALSE;
 
-    while (from[i] != '\0') {
-        currentSymbol = from[i];
+    while (line[i] != '\0') {
+        currentSymbol = line[i];
         if (currentSymbol == TAB) {
             currentSymbol = SPACE;
         }
-        /*if (currentSymbol == SPACE) {
-            printf("space\n");
-            *//*if (!prevSpace) {
-                to[i] = currentSymbol;
-            }*//*
+        if (currentSymbol == SPACE) {
+            if (!prevSpace) {
+                temp[j] = currentSymbol;
+                j++;
+            }
             prevSpace = TRUE;
         } else {
-            to[i] = currentSymbol;
+            temp[j] = currentSymbol;
             prevSpace = FALSE;
-        }*/
-        if (currentSymbol != SPACE) {
-            printf("not space, currentSymbol: %c\n", currentSymbol);
-            to[i] = currentSymbol;
+            j++;
         }
-        ++i;
+        i++;
     }
-    to[i] = '\0';
+    strcpy(line, temp);
+}
+
+void removeEmptyLines(char line[], const int lineLength) {
+    int i = 0;
+    int j = 0;
+    int prevNewLine = FALSE;
+    char temp[lineLength + 1];
+    char currentSymbol = 0;
+
+    while (line[i] != '\0') {
+        currentSymbol = line[i];
+        if (currentSymbol == NEW_LINE) {
+            prevNewLine = TRUE;
+        } else {
+            if (prevNewLine) {
+                temp[j] = NEW_LINE;
+                temp[j + 1] = currentSymbol;
+                j = j + 2;
+            } else {
+                temp[j] = currentSymbol;
+                j++;
+            }
+            prevNewLine = FALSE;
+        }
+        i++;
+    }
+
+    strcpy(line, temp);
 }
 
 void printTrimmedString() {
-    char line[10] = {'h','e',TAB,TAB,'1','g',SPACE,SPACE,'q','\0'};
+    char line[MAX_LINE_LENGTH];
 
-    /*writeLine(line);*/
-    char removedSpaceLine[MAX_LINE_LENGTH];
-    removeExtraSpaces(line, removedSpaceLine);
-    printLine(removedSpaceLine);
+    writeLine(line);
+    const int lineLength = strlen(line);
+    removeExtraSpaces(line, lineLength);
+    removeEmptyLines(line, lineLength);
+    printLine(line);
 }
 
 void main() {

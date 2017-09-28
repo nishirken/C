@@ -1,22 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include "utils.h"
 #include "chars.h"
 
 #define MAX_LINE_LENGTH 100
-
-void writeLine(char line[]) {
-    int c = 0;
-    int i = 0;
-
-    while ((c = getchar()) != ESC) {
-        line[i] = c;
-        i++;
-    }
-}
-
-void printLine(const char line[]) {
-    printf("%s\n", line);
-};
 
 char reverseLine(char line[]) {
     const int lineLength = strlen(line);
@@ -30,14 +17,7 @@ char reverseLine(char line[]) {
         j--;
     }
 
-    j = lineLength;
-    i = 0;
-
-    while (j != 0) {
-        line[i] = temp[i];
-        i++;
-        j--;
-    }
+    strcpy(line, temp);
 }
 
 void main() {
