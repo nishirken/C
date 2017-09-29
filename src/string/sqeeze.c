@@ -1,20 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "../std/utils.h"
+#include "utils.h"
 #include "../boolean.h"
-
-int charFound(char searchSymbol,char lineForSearch[]) {
-    int j = 0;
-
-    while (lineForSearch[j] != '\0') {
-        if (searchSymbol == lineForSearch[j]) {
-            return TRUE;
-        }
-        j++;
-    }
-
-    return FALSE;
-}
 
 void sqeeze() {
     char sampleLine[1000];
