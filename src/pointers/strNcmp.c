@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int strNcmp(const char *str1, const char *str2, const int limit) {
     int i = 0;
@@ -27,7 +28,9 @@ void main() {
     const int result1 = strNcmp(str1, str2, limit);
     const int result2 = strNcmp(str3, str4, limit);
     const int result3 = strNcmp(str5, str6, limit);
+    const int res = strncmp(str5, str6, limit);
     printf("Result first: %d\n", result1);
     printf("Result second: %d\n", result2);
     printf("Result third: %d\n", result3);
+    printf("%d", res);
 }
