@@ -1,24 +1,27 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include "./utils.h"
 
 static int first[3] = {1, 1, 2};
 static int second[10] = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
 
-void removeDuplicates(int* nums, int numsSize) {
-  int i = 1;
-  int prev = *nums;
+int *removeDuplicates(int* nums, int numsSize) {
+  int *top = nums + numsSize - 1;
+  int *result = nums;
+  *result = *nums;
+  ++result;
 
-  while (i != numsSize) {
-    if (nums[i] == prev) {
-      nums[i] = nums[i + 1];
+  while (nums++ != top) {
+    if (*nums != *(nums - 1)) {
+      *result = *nums;
+      ++result;
     }
-    prev = *nums;
-    nums++;
-    i++;
   }
+  
+  return result;
 }
 
 void main() {
-  removeDuplicates(first, sizeof(first));
-  printList(first);
+  int *res = removeDuplicates(second, 10);
+  printList(res, 10);
 }
