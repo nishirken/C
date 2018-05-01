@@ -5,7 +5,7 @@
 
 char* getLine() {
     int c;
-    char* str = (char *)malloc(MAX_LEN);
+    char* str = (char *)malloc(sizeof(char) * MAX_LEN);
     char* init = str;
 
     while ((c = getchar()) != EOF && c != '\n') {
@@ -17,7 +17,7 @@ char* getLine() {
 }
 
 void printLines(int n) {
-    char** fullStr = (char **)malloc(n);
+    char** fullStr = (char **)malloc(sizeof(char) * MAX_LEN * n);
     char** init = fullStr;
     int c;
     int i = n;
