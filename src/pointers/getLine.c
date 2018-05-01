@@ -1,16 +1,18 @@
 #include <stdio.h>
 
-int getLine(char *s, int lim)
+char* getLine(char *s)
 {
-    int c, i;
-    char *s2 = s;
+    int c, i = 0;
 
     while ((c=getchar()) != EOF && c != '\n') {
         *s++ = c;
+        i++;
     }
     if (c == '\n') {
         *s++ = c;
+        i++;
     }
     *s = '\0';
-    return s - s2;
+    i++;
+    return s - i;
 }
